@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Actor&family=Anta&family=Archivo:ital,wght@0,100..900;1,100..900&family=Madimi+One&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Actor&family=Anta&family=Archivo:ital,wght@0,100..900;1,100..900&family=Madimi+One&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Outfit:wght@100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +12,7 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #013366;
-  --bg-color: #013366;
+  --bg-color: #003366;
   --secondary-color: #2196f3;
 
   font-synthesis: none;
