@@ -1,8 +1,8 @@
 import React from 'react'
 
-function ButtonComp2({icon, text, otherStyle}) {
+function ButtonComp2({icon, text, otherStyle, handleClick}) {
   return (
-    <div className={'min-w-[70px] cursor-pointer bg-[var(--secondary-color)] flex items-center ' + otherStyle}>
+    <div className={'select-none min-w-[70px] cursor-pointer bg-[var(--secondary-color)] flex items-center ' + otherStyle} onClick={handleClick}>
         {icon && (
             <img src={icon} alt="" />
         )}

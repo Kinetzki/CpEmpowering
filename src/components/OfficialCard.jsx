@@ -3,7 +3,7 @@ import ButtonComp2 from './ButtonComp2'
 
 function OfficialCard() {
   return (
-    <div className='hover:scale-[1.03] duration-[0.3s] bg-[var(--bg-color)] w-[210px] h-[230px] mx-[6px] rounded-2xl flex flex-col px-3 py-1 items-center gap-1'>
+    <div className='hover:scale-[1.03] duration-[0.3s] bg-[var(--bg-color)] w-[210px] h-[230px] mx-[10px] rounded-2xl flex flex-col px-3 py-1 items-center gap-1 z-[1] shadow-none hover:shadow-lg shadow-black'>
         <h1 className='w-full border-b-[1px] border-[#ffffff]'>Captain</h1>
         <div className='w-[52px] h-[52px] bg-white rounded-full'></div>
         <h1 className='text-[13px]'>Gab Narvadez</h1>

@@ -4,17 +4,18 @@ import PanelDropDown from "./PanelDropDown";
 import dashboard from "../assets/icons/dashboard.svg";
 import barangay from "../assets/icons/barangay.svg";
 import resident from "../assets/icons/resident.svg";
-import news from "../assets/icons/news.svg";
+import logo from "../assets/icons/logo.png";
+import house from "../assets/icons/house.svg";
 import { useNavigate } from "react-router-dom";
 
 function SidePanel() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen bg-[var(--bg-color)] flex flex-col gap-[30px] px-[30px] rounded-[15px] min-w-[260px] py-[25px] pl-[30px]">
-      <div className="w-full flex items-center justify-center">
-        <div className="w-[120px] h-[120px] rounded-full bg-white">
-          <img src="" alt="" />
+    <div className="h-screen bg-[var(--bg-color)] flex flex-col gap-[30px] px-[30px] min-w-[260px] py-[25px] pl-[30px]">
+      <div className="w-full flex items-center justify-center p-1">
+        <div className="w-[120px] h-[120px] rounded-full bg-transparent shadow-white/20 shadow-md">
+          <img src={logo} alt="" className="w-full h-full object-cover rounded-full"/>
         </div>
       </div>
 
@@ -35,13 +36,13 @@ function SidePanel() {
         text={"Resident"}
         icon={resident}
         items={["Resident Profiling"]}
-        routes={["resident-profiling"]}
+        routes={["resident-profiling/1"]}
       />
       <PanelButton
-        text={"News"}
-        icon={news}
+        text={"Households"}
+        icon={house}
         handleClick={() => {
-          navigate("/news");
+          navigate("/households");
         }}
       />
     </div>
