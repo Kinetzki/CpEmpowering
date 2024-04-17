@@ -140,7 +140,7 @@ function AddResident({ handleClick, cancel, setNewResident }) {
             type={"text"}
             width={"w-[285px]"}
             handleChange={(e) => {
-              setNewResident((prev) => ({ ...prev, email_address: e.target.value }));
+              setNewResident((prev) => ({ ...prev, email: e.target.value }));
             }}
           />
           <FieldResident
@@ -148,7 +148,7 @@ function AddResident({ handleClick, cancel, setNewResident }) {
             type={"text"}
             width={"w-[185px]"}
             handleChange={(e) => {
-              setNewResident((prev) => ({ ...prev, household_no: e.target.value }));
+              setNewResident((prev) => ({ ...prev, household: e.target.value }));
             }}
           />
         </div>

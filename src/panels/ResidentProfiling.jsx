@@ -124,37 +124,62 @@ function ResidentProfiling() {
   };
 
   const handleAddResident = async () => {
+    setIsLoading(true);
+    setResidents([]);
     setShowAdd(false);
     console.log(newResident);
     //match ng sa keys
+    const response = await axios.post(
+      "https://jacobdfru.pythonanywhere.com/api/residents/add",
+      newResident,
+      {
+        headers: {
+          Authorization: `Token ${sessionStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.status === 200) {
+      await fetchData();
+    }
   };
 
   const handleEditResident = async (id, data) => {
     setIsLoading(true);
     setResidents([]);
     console.log(id, data);
-    const response = await axios.put(`https://jacobdfru.pythonanywhere.com/api/residents/update/${id}`, data, {
-      headers: {
-        "Authorization": `Token ${sessionStorage.getItem("token")}`
+    const response = await axios.put(
+      `https://jacobdfru.pythonanywhere.com/api/residents/update/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Token ${sessionStorage.getItem("token")}`,
+        },
       }
-    });
+    );
     if (response.status === 200) {
       await fetchData();
     }
-  }
+  };
 
   const handleAddCSV = async () => {
+    console.log(importData);
     if (importData.length > 0) {
-      const response = await axios.post("https://jacobdfru.pythonanywhere.com/api/residents/upload", importData, {
-        headers: {
-          "Authorization": `Token ${sessionStorage.getItem("token")}`
+      const response = await axios.post(
+        "https://jacobdfru.pythonanywhere.com/api/residents/upload",
+        importData,
+        {
+          headers: {
+            Authorization: `Token ${sessionStorage.getItem("token")}`,
+          },
         }
-      });
+      );
       if (response.status === 200) {
         await fetchData();
+      } else {
+        console.error(response.error);
       }
     }
-  }
+  };
 
   const handleDownload = () => {
     window.open("https://jacobdfru.pythonanywhere.com/api/residents/download");
@@ -220,14 +245,19 @@ function ResidentProfiling() {
             handleClick={handleAddResident}
           />
         )}
-        {showCSV && <CsvLoader entries={importData} handleClick={async ()=>{
-          setShowCSV(false);
-          await handleAddCSV();
-        }}/>}
+        {showCSV && (
+          <CsvLoader
+            entries={importData}
+            handleClick={async () => {
+              setShowCSV(false);
+              await handleAddCSV();
+            }}
+          />
+        )}
         {showResident && (
           <ShowResident
             entry={{ ...clickedResident }}
-            handleClick={ async(id, data) => {
+            handleClick={async (id, data) => {
               setShowResident(false);
               await handleEditResident(id, data);
             }}
@@ -245,6 +275,7 @@ function ResidentProfiling() {
             cancel={() => {
               setConfirm(false);
             }}
+            confirmText="Delete"
           />
         )}
         {!isLoading && (

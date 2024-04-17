@@ -173,7 +173,7 @@ function ShowResident({ entry, handleClick }) {
         </div>
         <div className="w-full flex gap-[20px] justify-end">
           <ButtonComp2
-            text="Ok"
+            text="Save"
             otherStyle={"p-[5px] rounded-[10px]"}
             handleClick={async ()=>{
               await handleClick(data.id, data);

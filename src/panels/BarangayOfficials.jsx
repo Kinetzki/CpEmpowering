@@ -39,24 +39,51 @@ function BarangayOfficials() {
   }, []);
 
   const handleDelete = async (id) => {
-    const response = await axios.delete(`https://jacobdfru.pythonanywhere.com/api/officials/delete/${id}`, {
-      headers: {
-        "Authorization": `Token ${sessionStorage.getItem("token")}`
+    const response = await axios.delete(
+      `https://jacobdfru.pythonanywhere.com/api/officials/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Token ${sessionStorage.getItem("token")}`,
+        },
       }
-    });
-  }
-  
+    );
+  };
+
   const handleAdd = async () => {
+    setShowAdd(false);
+    setIsLoading(true);
     console.log(newOfficial);
-    // const response = await axios.post(
-    //   "https://jacobdfru.pythonanywhere.com/api/officials/add",
-    //   newOfficial,
-    //   {
-    //     headers: {
-    //       Authorization: `Token ${sessionStorage.getItem("token")}`,
-    //     },
-    //   }
-    // );
+    if (newOfficial) {
+      const response = await axios.post(
+        "https://jacobdfru.pythonanywhere.com/api/officials/add",
+        newOfficial,
+        {
+          headers: {
+            Authorization: `Token ${sessionStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        await fetchOfficials();
+      }
+    }
+  };
+
+  const handleEditOfficial = async (id, data) => {
+    setIsLoading(true);
+    console.log(id, data);
+    const response = await axios.put(
+      `https://jacobdfru.pythonanywhere.com/api/officials/update/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Token ${sessionStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.status === 200) {
+      await fetchOfficials();
+    }
   };
 
   return (
@@ -86,14 +113,19 @@ function BarangayOfficials() {
               setShowEdit(false);
             }}
             entry={clickedOfficial}
+            handleClick={async (id, data) => {
+              setShowEdit(false);
+              await handleEditOfficial(id, data);
+            }}
           />
         )}
         {showAdd && (
           <AddOfficials
             setNewOfficial={setNewOfficial}
             handleClick={handleAdd}
-            cancel={() => {
+            cancel={async () => {
               setShowAdd(false);
+              await handleAdd();
             }}
           />
         )}
@@ -114,7 +146,7 @@ function BarangayOfficials() {
                   setClickedOfficial(official);
                 }
               }}
-              handleDelete={async(id)=>{
+              handleDelete={async (id) => {
                 setIsLoading(true);
                 await handleDelete(id);
                 fetchOfficials();
