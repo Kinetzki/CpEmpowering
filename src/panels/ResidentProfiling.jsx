@@ -151,7 +151,7 @@ function ResidentProfiling() {
         }
       });
       if (response.status === 200) {
-        fetchData();
+        await fetchData();
       }
     }
   }
@@ -220,9 +220,9 @@ function ResidentProfiling() {
             handleClick={handleAddResident}
           />
         )}
-        {showCSV && <CsvLoader entries={importData} handleClick={()=>{
+        {showCSV && <CsvLoader entries={importData} handleClick={async ()=>{
           setShowCSV(false);
-          // handleAddCSV();
+          await handleAddCSV();
         }}/>}
         {showResident && (
           <ShowResident
