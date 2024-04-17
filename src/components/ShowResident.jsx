@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import FieldResident from "./FieldResident";
 import ButtonComp2 from "./ButtonComp2";
 
-function ShowResident({ entry, setNewResident, handleClick }) {
+function ShowResident({ entry, handleClick }) {
   const [data, setData] = useState({});
   useEffect(() => {
     setData(entry);
@@ -175,7 +175,9 @@ function ShowResident({ entry, setNewResident, handleClick }) {
           <ButtonComp2
             text="Ok"
             otherStyle={"p-[5px] rounded-[10px]"}
-            handleClick={handleClick}
+            handleClick={async ()=>{
+              await handleClick(data.id, data);
+            }}
           />
         </div>
       </div>

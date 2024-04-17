@@ -13,7 +13,7 @@ function Banner() {
       </div>
       {/*  */}
       <div className="flex items-center gap-2">
-        <h1>Elijah</h1>
+        <h1>Brgy. Kordapyo</h1>
         <Avatar />
         <div
           className="bg-[var(--secondary-color)] py-1 px-5 rounded-full flex gap-1 cursor-pointer ml-[25px]"

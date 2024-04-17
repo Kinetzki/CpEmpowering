@@ -1,12 +1,11 @@
 import Papa from "papaparse";
 
-const getdata = async (file) => {
-  await Papa.parse(file, {
+const getdata = async (file, func) => {
+  Papa.parse(file, {
     header: true,
     skipEmptyLines: true,
     complete: (result) => {
-      console.log(result);
-      return result;
+      func(result.data);
     },
   });
 };

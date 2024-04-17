@@ -31,7 +31,7 @@ function ResidentItem({ entry, setSelected, setClicked, handleClick }) {
       <h1 className="w-[220px]">kinetzki2k20@gmail.com</h1>
       <h1 className="w-[240px]">{entry.address}</h1>
       <h1 className="w-[120px]">{entry.phone_number}</h1>
-      <h1 className="w-[90px]">Actions</h1>
+      <h1 className="w-[90px]">{entry.sex}</h1>
     </div>
   );
 }

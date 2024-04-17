@@ -7,6 +7,7 @@ import resident from "../assets/icons/resident.svg";
 import logo from "../assets/icons/logo.png";
 import house from "../assets/icons/house.svg";
 import { useNavigate } from "react-router-dom";
+import ShowResident from "../components/ShowResident";
 
 function SidePanel() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function SidePanel() {
         text={"Households"}
         icon={house}
         handleClick={() => {
-          navigate("/households");
+          navigate("/households/1");
         }}
       />
     </div>

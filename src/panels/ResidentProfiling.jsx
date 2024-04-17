@@ -10,6 +10,8 @@ import AddResident from "../components/AddResident";
 import ShowResident from "../components/ShowResident";
 import sort from "../assets/icons/sort.svg";
 import getdata from "../utils/readCsv";
+import CsvLoader from "../components/CsvLoader";
+
 function ResidentProfiling() {
   const [residents, setResidents] = useState([]);
   const [backUpRes, setBackUpRes] = useState([]);
@@ -25,7 +27,8 @@ function ResidentProfiling() {
   const [clickedResident, setClickedResident] = useState(null);
   const [newResident, setNewResident] = useState({});
   const [importData, setImportData] = useState([]);
-  
+  const [showCSV, setShowCSV] = useState(false);
+
   useEffect(() => {
     console.log(newResident);
   }, [newResident]);
@@ -110,20 +113,52 @@ function ResidentProfiling() {
   const fileInputRef = useRef(null);
   const handleImportData = () => {
     fileInputRef.current.click();
-  }
+  };
+
   const handleFileChange = async (e) => {
     const csvFile = e.target.files[0];
-    const data = await getdata(csvFile);
-    if (data){
+    getdata(csvFile, (data) => {
+      setShowCSV(true);
       setImportData(data);
-    }
-  }
+    });
+  };
 
   const handleAddResident = async () => {
     setShowAdd(false);
     console.log(newResident);
     //match ng sa keys
+  };
+
+  const handleEditResident = async (id, data) => {
+    setIsLoading(true);
+    setResidents([]);
+    console.log(id, data);
+    const response = await axios.put(`https://jacobdfru.pythonanywhere.com/api/residents/update/${id}`, data, {
+      headers: {
+        "Authorization": `Token ${sessionStorage.getItem("token")}`
+      }
+    });
+    if (response.status === 200) {
+      await fetchData();
+    }
   }
+
+  const handleAddCSV = async () => {
+    if (importData.length > 0) {
+      const response = await axios.post("https://jacobdfru.pythonanywhere.com/api/residents/upload", importData, {
+        headers: {
+          "Authorization": `Token ${sessionStorage.getItem("token")}`
+        }
+      });
+      if (response.status === 200) {
+        fetchData();
+      }
+    }
+  }
+
+  const handleDownload = () => {
+    window.open("https://jacobdfru.pythonanywhere.com/api/residents/download");
+  };
 
   return (
     <div className="w-full bg-white min-h-screen p-2 flex flex-col">
@@ -136,11 +171,17 @@ function ResidentProfiling() {
             otherStyle={"py-2 px-4 rounded-full"}
             handleClick={handleImportData}
           />
-          <input type="file" ref={fileInputRef} style={{display:"none"}} onChange={handleFileChange}/>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
 
           <ButtonComp2
             text={"Export Data"}
             otherStyle={"py-2 px-4 rounded-full"}
+            handleClick={handleDownload}
           />
           <ButtonComp2
             text={"Delete"}
@@ -157,6 +198,7 @@ function ResidentProfiling() {
             handleClick={() => {
               setType("Add");
               setShowAdd(!showAdd);
+              setShowResident(false);
             }}
           />
           {/* Searching */}
@@ -178,15 +220,26 @@ function ResidentProfiling() {
             handleClick={handleAddResident}
           />
         )}
-        {showResident && <ShowResident entry={{...clickedResident}} setNewResident={setNewResident} handleClick={()=>{
-          setShowResident(false);
+        {showCSV && <CsvLoader entries={importData} handleClick={()=>{
+          setShowCSV(false);
+          // handleAddCSV();
         }}/>}
+        {showResident && (
+          <ShowResident
+            entry={{ ...clickedResident }}
+            handleClick={ async(id, data) => {
+              setShowResident(false);
+              await handleEditResident(id, data);
+            }}
+          />
+        )}
         {isLoading && <Loader />}
         {confirm && (
           <ConfirmDel
             text="Delete resident/s?"
             handleClick={async () => {
               setConfirm(false);
+              setIsLoading(true);
               await removeResident();
             }}
             cancel={() => {
@@ -230,7 +283,7 @@ function ResidentProfiling() {
             <h1 className="w-[220px]">Email</h1>
             <h1 className="w-[240px]">Address</h1>
             <h1 className="w-[120px]">Phone</h1>
-            <h1 className="w-[90px]">Actions</h1>
+            <h1 className="w-[90px]">Sex</h1>
           </div>
         )}
 
