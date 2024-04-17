@@ -35,6 +35,7 @@ function ResidentProfiling() {
 
   const fetchData = async () => {
     setIsLoading(true);
+    setResidents([]);
     const response = await axios.get(
       "https://jacobdfru.pythonanywhere.com/api/residents/list",
       {
@@ -166,7 +167,7 @@ function ResidentProfiling() {
     if (importData.length > 0) {
       const response = await axios.post(
         "https://jacobdfru.pythonanywhere.com/api/residents/upload",
-        importData,
+        { residents: importData },
         {
           headers: {
             Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -251,6 +252,9 @@ function ResidentProfiling() {
             handleClick={async () => {
               setShowCSV(false);
               await handleAddCSV();
+            }}
+            cancel={() => {
+              setShowCSV(false);
             }}
           />
         )}

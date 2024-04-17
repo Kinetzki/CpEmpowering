@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ButtonComp2 from "./ButtonComp2";
 
-function CsvLoader({ entries, handleClick }) {
+function CsvLoader({ entries, handleClick, cancel }) {
   const keys = Object.keys(entries[0]);
   return (
     <div className="w-full h-full fixed flex items-center justify-center top-0 left-0 z-[9999] flex-col">

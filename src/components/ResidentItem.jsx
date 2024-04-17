@@ -28,7 +28,7 @@ function ResidentItem({ entry, setSelected, setClicked, handleClick }) {
       />
       <h1 className="w-[200px]">{`${entry.first_name} ${entry.middle_name} ${entry.surname}`}</h1>
       <h1 className="w-[50px]">{entry.age}</h1>
-      <h1 className="w-[220px]">kinetzki2k20@gmail.com</h1>
+      <h1 className="w-[220px]">{entry.email || "N/A"}</h1>
       <h1 className="w-[240px]">{entry.address}</h1>
       <h1 className="w-[120px]">{entry.phone_number}</h1>
       <h1 className="w-[90px]">{entry.sex}</h1>
