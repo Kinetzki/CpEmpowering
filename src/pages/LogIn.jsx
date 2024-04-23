@@ -85,6 +85,11 @@ function LogIn() {
               placeHolder={"Enter your password"}
               type={"password"}
               onChange={handlePass}
+              onEnter={async (e) => {
+                if (e.key === "Enter" || e.keyCode === 13) {
+                  await handleLogin();
+                }
+              }}
             >
               <img src={lock} alt="" className="w-[20px] h-[20px]" />
             </InputField>
@@ -101,7 +106,7 @@ function LogIn() {
             <h1>Signup</h1>
           </div> */}
           <ButtonComp
-            text={isLoading?"Loading...":"Login Now"}
+            text={isLoading ? "Loading..." : "Login Now"}
             otherStyle={
               "font-Nunito mt-[20px] text-[15px] font-bold px-[50px] text-white py-[10px]"
             }

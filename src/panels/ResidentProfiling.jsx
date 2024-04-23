@@ -28,7 +28,7 @@ function ResidentProfiling() {
   const [newResident, setNewResident] = useState({});
   const [importData, setImportData] = useState([]);
   const [showCSV, setShowCSV] = useState(false);
-
+  
   useEffect(() => {
     console.log(newResident);
   }, [newResident]);
@@ -237,6 +237,7 @@ function ResidentProfiling() {
         </div>
       </div>
       <div className="h-full w-full rounded-xl border-[#0000008a] border-[1px] px-[20px] flex flex-col overflow-y-auto relative">
+
         {showAdd && (
           <AddResident
             setNewResident={setNewResident}
@@ -338,6 +339,7 @@ function ResidentProfiling() {
                   key={i}
                   entry={resident}
                   setSelected={setSelected}
+                  selectedArr={selected}
                   setClicked={setClickedResident}
                   handleClick={() => {
                     if (clickedResident && resident === clickedResident) {
@@ -378,6 +380,7 @@ function ResidentProfiling() {
               <h1
                 className="underline cursor-pointer"
                 onClick={() => {
+
                   console.log(currentPage);
                   if (currentPage + 1 <= Math.ceil(residents.length / 6)) {
                     setCurrentPage(currentPage + 1);

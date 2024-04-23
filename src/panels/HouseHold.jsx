@@ -134,14 +134,14 @@ function HouseHold() {
               className="text-[var(--bg-color)] bg-white px-[10px] rounded-full py-[3px]"
               placeholder="Search"
               onChange={(e) => {
-                setHouseholdNumber(parseInt(e.target.value));
+                setHouseholdNumber(e.target.value);
               }}
             />
             <ButtonComp2
               text={"Enter"}
               otherStyle={"py-2 px-4 rounded-full"}
               handleClick={() => {
-                if (householdNumber >= 0) {
+                if (householdNumber) {
                   setHouseIsSet(true);
                   console.log(householdNumber);
                   setResidents(
@@ -163,8 +163,9 @@ function HouseHold() {
               <ButtonComp2
                 text={"Back"}
                 otherStyle={"py-2 px-4 rounded-full"}
-                handleClick={() => {
+                handleClick={async () => {
                   setHouseIsSet(false);
+                  await fetchData();
                 }}
               />
               <ButtonComp2
