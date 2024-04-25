@@ -346,9 +346,9 @@ function ResidentProfiling() {
         )}
         {!isLoading && (
           <div className="font-semibold flex text-black mt-[30px] w-full gap-3 bg-white h-[55px] items-end py-2 border-b-[1px] border-[#000000]">
-            <div className="w-[10px]"></div>
+            <div className="w-[20px]"></div>
             <h1
-              className="w-[200px] flex items-center gap-2 cursor-pointer"
+              className="w-[25%] flex items-center gap-2 cursor-pointer"
               onClick={() => {
                 setResidents((prev) => {
                   var sortedResidents = [...prev];
@@ -370,7 +370,7 @@ function ResidentProfiling() {
               </span>
             </h1>
             <h1
-              className="w-[50px] flex items-start gap-2 cursor-pointer"
+              className="w-[5%] flex items-start gap-2 cursor-pointer"
               onClick={() => {
                 setResidents((prev) => {
                   var sortedResidents = [...prev];
@@ -389,10 +389,10 @@ function ResidentProfiling() {
                 <img src={sort} alt="" className="w-[10px]" />
               </span>
             </h1>
-            <h1 className="w-[220px]">Email</h1>
-            <h1 className="w-[240px]">Address</h1>
-            <h1 className="w-[120px]">Phone</h1>
-            <h1 className="w-[90px]">Sex</h1>
+            <h1 className="w-[30%]">Email</h1>
+            <h1 className="w-[30%]">Address</h1>
+            <h1 className="w-[20%]">Phone</h1>
+            <h1 className="w-[20%]">Sex</h1>
           </div>
         )}
         {noMatch && <h1 className="text-black w-full text-center font-semibold py-[30px] text-[25px]">No Match Found</h1>}
