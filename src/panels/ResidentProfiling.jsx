@@ -84,11 +84,12 @@ function ResidentProfiling() {
       }
     );
     console.log(response);
-    if (response.statusText === "No Content") {
-      setResidents(residents.filter((el) => !selected.includes(el.id)));
+    if (response.status === 204) {
+      // setResidents(residents.filter((el) => !selected.includes(el.id)));
       setSelected([]);
       setResidents(null);
-      fetchData();
+      location.reload();
+      // await fetchData();
     }
   };
 

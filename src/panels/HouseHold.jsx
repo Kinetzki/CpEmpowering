@@ -71,14 +71,14 @@ function HouseHold() {
       }
     );
     console.log(response);
-    if (response.statusText === "No Content") {
-      setResidents(residents.filter((el) => !selected.includes(el.id)));
+    if (response.status === 204) {
       setSelected([]);
       setResidents(null);
-      await fetchData();
-      setResidents(
-        residents.filter((item) => item.household === householdNumber)
-      );
+      location.reload();
+      // await fetchData();
+      // setResidents(
+      //   residents.filter((item) => item.household === householdNumber)
+      // );
     }
   };
 
@@ -205,6 +205,7 @@ function HouseHold() {
           {isLoading && <Loader />}
           {confirm && (
             <ConfirmDel
+            confirmText={"Delete"}
               text="Delete resident/s?"
               handleClick={async () => {
                 setConfirm(false);
@@ -276,6 +277,7 @@ function HouseHold() {
                     entry={resident}
                     setSelected={setSelected}
                     setClicked={setClickedResident}
+                    selectedArr={selected}
                     handleClick={() => {
                       if (clickedResident && resident === clickedResident) {
                         setShowResident((prev) => !prev);
