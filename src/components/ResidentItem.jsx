@@ -14,7 +14,7 @@ function ResidentItem({ entry, setSelected, setClicked, handleClick, selectedArr
 
   return (
     <div
-      className="flex text-black w-full gap-3 h-[55px] items-center border-b-[1px] border-[#000000] hover:bg-[#FF000026] cursor-pointer select-none"
+      className="flex text-black w-full gap-3 min-h-[55px] items-center border-b-[1px] border-[#000000] hover:bg-[#FF000026] cursor-pointer select-none"
       onClick={() => {
         setClicked(entry);
         console.log(entry);

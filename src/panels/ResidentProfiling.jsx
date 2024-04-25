@@ -28,7 +28,7 @@ function ResidentProfiling() {
   const [newResident, setNewResident] = useState({});
   const [importData, setImportData] = useState([]);
   const [showCSV, setShowCSV] = useState(false);
-  
+
   useEffect(() => {
     console.log(newResident);
   }, [newResident]);
@@ -187,7 +187,7 @@ function ResidentProfiling() {
   };
 
   return (
-    <div className="w-full bg-white min-h-screen p-2 flex flex-col">
+    <div className="w-[81vw] bg-white min-h-screen p-2 flex flex-col">
       <Banner />
       <div className="w-full rounded-xl bg-[var(--bg-color)] h-[55px] justify-between items-center flex px-5 py-2 translate-y-[25px] z-[100]">
         <h1>Manage Residents</h1>
@@ -236,8 +236,7 @@ function ResidentProfiling() {
           />
         </div>
       </div>
-      <div className="h-full w-full rounded-xl border-[#0000008a] border-[1px] px-[20px] flex flex-col overflow-y-auto relative">
-
+      <div className="h-[80vh] w-full rounded-xl border-[#0000008a] border-[1px] px-[20px] flex flex-col relative overflow-y-auto">
         {showAdd && (
           <AddResident
             setNewResident={setNewResident}
@@ -285,15 +284,21 @@ function ResidentProfiling() {
         )}
         {!isLoading && (
           <div className="font-semibold flex text-black mt-[30px] w-full gap-3 bg-white h-[55px] items-end py-2 border-b-[1px] border-[#000000]">
-            <div className="w-[50px]"></div>
+            <div className="w-[10px]"></div>
             <h1
               className="w-[200px] flex items-center gap-2 cursor-pointer"
               onClick={() => {
                 setResidents((prev) => {
-                  const sortedResidents = [...prev];
-                  return sortedResidents.sort((a, b) =>
+                  var sortedResidents = [...prev];
+                  sortedResidents = sortedResidents.sort((a, b) =>
                     a.first_name.localeCompare(b.first_name)
                   );
+                  if (prev[0].surname === sortedResidents[0].surname) {
+                    return sortedResidents.sort((a, b) =>
+                      b.first_name.localeCompare(a.first_name)
+                    );
+                  }
+                  return sortedResidents;
                 });
               }}
             >
@@ -303,11 +308,17 @@ function ResidentProfiling() {
               </span>
             </h1>
             <h1
-              className="w-[50px] flex items-center gap-2 cursor-pointer"
+              className="w-[50px] flex items-start gap-2 cursor-pointer"
               onClick={() => {
                 setResidents((prev) => {
-                  const sortedResidents = [...prev];
-                  return sortedResidents.sort((a, b) => b.age - a.age);
+                  var sortedResidents = [...prev];
+                  sortedResidents = sortedResidents.sort(
+                    (a, b) => b.age - a.age
+                  );
+                  if (prev[0].surname === sortedResidents[0].surname) {
+                    return sortedResidents.sort((a, b) => a.age - b.age);
+                  }
+                  return sortedResidents;
                 });
               }}
             >
@@ -327,11 +338,11 @@ function ResidentProfiling() {
         {residents &&
           residents
             .slice(
-              (currentPage - 1) * 6,
+              (currentPage - 1) * 50,
               // currentPage + 5
-              (currentPage - 1) * 6 + 5 > residents.length
+              (currentPage - 1) * 50 + 49 > residents.length
                 ? residents.length
-                : (currentPage - 1) * 6 + 6
+                : (currentPage - 1) * 50 + 50
             )
             .map((resident, i) => {
               return (
@@ -353,11 +364,11 @@ function ResidentProfiling() {
             })}
         {/* Bottom */}
         {!isLoading && (
-          <div className="flex w-full h-[60px] items-end justify-between px-4 text-black select-none">
+          <div className="flex w-full min-h-[60px] items-center justify-between px-4 text-black select-none">
             <h1 className="text-[14px]">{`Showing ${
-              currentPage * 6 > residents.length - 1
+              currentPage * 50 > residents.length - 1
                 ? residents.length
-                : currentPage * 6
+                : currentPage * 50
             } out of ${residents ? residents.length : ""}`}</h1>
             <div className="flex gap-4">
               <h1
@@ -380,9 +391,8 @@ function ResidentProfiling() {
               <h1
                 className="underline cursor-pointer"
                 onClick={() => {
-
                   console.log(currentPage);
-                  if (currentPage + 1 <= Math.ceil(residents.length / 6)) {
+                  if (currentPage + 1 <= Math.ceil(residents.length / 50)) {
                     setCurrentPage(currentPage + 1);
                     navigate(`/resident-profiling/${currentPage + 1}`, {
                       replace: true,
