@@ -34,11 +34,16 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="w-full bg-white min-h-screen p-2 box-border">
+    <div className="w-full bg-white min-h-screen p-2 box-border  ">
       <Banner />
-      <div className="w-full flex py-10 justify-center gap-10 items-center h-[90vh]">
+      <div className="flex items-center w-full">
+      <h1 className="text-[var(--bg-color)] font-Outfit text-[30px] py-[30px] pl-[50px] font-semibold w-[450px]">Barangay Statistics</h1>
+      <hr className="border-[var(--bg-color)] border-[1px] w-[100%]"/>
+      </div>
+      <div className="w-full flex py-5 justify-center gap-10 items-start h-[90vh]">
         {/* Container */}
         <div className="w-[600px] h-[450px] border-[1px] border-[#0000006f] rounded-xl px-3 py-4">
+          <h1 className="text-[#000000] -translate-y-[190%]">Population Age Statistics</h1>
           <ResponsiveContainer width={"100%"} height={"100%"}>
             <BarChart data={stats.ranges}>
               <Bar dataKey={"count"} fill="#165165" />
@@ -49,7 +54,8 @@ function Dashboard() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="w-[400px] h-[450px] flex items-center justify-center border-[1px] border-[#0000006f] rounded-xl">
+        <div className="w-[400px] h-[450px] flex items-center justify-center border-[1px] border-[#0000006f] rounded-xl flex-col">
+        <h1 className="text-[#000000] -translate-y-[110%] -translate-x-[60%]">Population Sex Statistics</h1>
           <ResponsiveContainer width={"50%"}>
             <BarChart
               data={[{

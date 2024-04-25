@@ -12,6 +12,7 @@ import sort from "../assets/icons/sort.svg";
 import getdata from "../utils/readCsv";
 import CsvLoader from "../components/CsvLoader";
 import ErrorComp from "../components/ErrorComp";
+import CsvError from "../components/CsvError";
 
 function ResidentProfiling() {
   const [residents, setResidents] = useState([]);
@@ -30,6 +31,7 @@ function ResidentProfiling() {
   const [importData, setImportData] = useState([]);
   const [showCSV, setShowCSV] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  const [failedCSV, setFailedCSV] = useState([]);
 
   useEffect(() => {
     console.log(newResident);
@@ -182,25 +184,35 @@ function ResidentProfiling() {
 
   const handleAddCSV = async () => {
     console.log(importData);
-    if (importData.length > 0) {
-      const response = await axios.post(
-        "https://jacobdfru.pythonanywhere.com/api/residents/upload",
-        { residents: importData },
-        {
-          headers: {
-            Authorization: `Token ${sessionStorage.getItem("token")}`,
-          },
+    try {
+      if (importData.length > 0) {
+        const response = await axios.post(
+          "https://jacobdfru.pythonanywhere.com/api/residents/upload",
+          { residents: importData },
+          {
+            headers: {
+              Authorization: `Token ${sessionStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log(response);
+        if (response.status === 200) {
+          const faileds = response.data.failed;
+          if (faileds.length > 0) {
+            setFailedCSV(faileds);
+          } else {
+            location.reload();
+            await fetchData();
+          }
         }
-      );
-      console.log(response);
-      if (response.status === 200) {
-        await fetchData();
-      } else {
-        console.error(response.error);
       }
+    } catch (err) {
+      console.log(err);
+      const e = err.response.data.error;
+      console.log(e);
+      setErrMsg(e);
     }
   };
-
   const handleDownload = () => {
     window.open("https://jacobdfru.pythonanywhere.com/api/residents/download");
   };
@@ -235,7 +247,7 @@ function ResidentProfiling() {
               if (selected.length > 0) {
                 setConfirm(!confirm);
               } else {
-                setErrMsg("No Residents Selected")
+                setErrMsg("No Residents Selected");
               }
             }}
           />
@@ -267,6 +279,15 @@ function ResidentProfiling() {
             handleClick={handleAddResident}
           />
         )}
+        {failedCSV.length > 0 && (
+          <CsvError
+            entries={failedCSV}
+            handleClick={() => {
+              setFailedCSV([]);
+              location.reload();
+            }}
+          />
+        )}
         {showCSV && (
           <CsvLoader
             entries={importData}
@@ -275,7 +296,9 @@ function ResidentProfiling() {
               await handleAddCSV();
             }}
             cancel={() => {
+              setImportData([]);
               setShowCSV(false);
+              location.reload();
             }}
           />
         )}
@@ -297,7 +320,7 @@ function ResidentProfiling() {
               setShowResident(false);
               await handleEditResident(id, data);
             }}
-            cancel={()=>{
+            cancel={() => {
               setShowResident(false);
             }}
           />

@@ -8,6 +8,7 @@ import AddOfficials from "../components/AddOfficials";
 import axios from "axios";
 import Loader from "../components/Loader";
 import ShowOfficial from "../components/ShowOfficial";
+import ErrorComp from "../components/ErrorComp";
 
 function BarangayOfficials() {
   const [showAdd, setShowAdd] = useState(false);
@@ -16,7 +17,7 @@ function BarangayOfficials() {
   const [newOfficial, setNewOfficial] = useState({});
   const [showEdit, setShowEdit] = useState(false);
   const [clickedOfficial, setClickedOfficial] = useState(null);
-
+  const [errMsg, setErrMsg] = useState("");
   const fetchOfficials = async () => {
     setIsLoading(true);
     const response = await axios.get(
@@ -53,20 +54,26 @@ function BarangayOfficials() {
     setShowAdd(false);
     setIsLoading(true);
     console.log(newOfficial);
-    if (newOfficial) {
-      const response = await axios.post(
-        "https://jacobdfru.pythonanywhere.com/api/officials/add",
-        newOfficial,
-        {
-          headers: {
-            Authorization: `Token ${sessionStorage.getItem("token")}`,
-          },
+    try {
+      if (newOfficial) {
+        const response = await axios.post(
+          "https://jacobdfru.pythonanywhere.com/api/officials/add",
+          newOfficial,
+          {
+            headers: {
+              Authorization: `Token ${sessionStorage.getItem("token")}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          await fetchOfficials();
         }
-      );
-      if (response.status === 200) {
-        await fetchOfficials();
       }
+    } catch(err) {
+      setIsLoading(false);
+      setErrMsg("Error please check all fields");
     }
+    
   };
 
   const handleEditOfficial = async (id, data) => {
@@ -131,7 +138,10 @@ function BarangayOfficials() {
         )}
         {isLoading && <Loader />}
         {/* Render Officials Cards */}
-
+        {errMsg && <ErrorComp err={errMsg} handleClick={async ()=>{
+          setErrMsg("");
+          await fetchOfficials();
+        }}/>}
         {officials?.map((official, i) => {
           return (
             <OfficialCard

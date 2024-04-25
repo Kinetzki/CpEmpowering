@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FieldResident from "./FieldResident";
 import ButtonComp2 from "./ButtonComp2";
+import checked from "../assets/icons/checked.svg";
 
 function ShowResident({ entry, handleClick, cancel }) {
   const [data, setData] = useState({});
@@ -151,11 +152,11 @@ function ShowResident({ entry, handleClick, cancel }) {
           />
         </div>
         {/* sixth row */}
-        <div className="w-full flex justify-between">
+        <div className="w-full flex gap-10">
           <FieldResident
             inputDisplay={"Email Address"}
             type={"text"}
-            width={"w-[285px]"}
+            width={"w-[185px]"}
             value={data.email || ""}
             handleChange={(e) => {
               setData((prev) => ({ ...prev, email: e.target.value }));
@@ -164,12 +165,29 @@ function ShowResident({ entry, handleClick, cancel }) {
           <FieldResident
             inputDisplay={"Household Number"}
             type={"text"}
-            width={"w-[185px]"}
+            width={"w-[55px]"}
             value={data.household || ""}
             handleChange={(e) => {
               setData((prev) => ({ ...prev, household: e.target.value }));
             }}
           />
+          <div
+            className="w-[20px] flex flex-col items-center"
+            onClick={(e) => {
+              setData((prev) => ({ ...prev, deceased: !data.deceased }));
+            }}
+          >
+            <h1>Deceased</h1>
+            <div className="bg-white w-[20px] h-[20px] flex items-center justify-center">
+              {data.deceased && (
+                <img
+                  src={checked}
+                  alt=""
+                  className="w-[18px] h-[18px] rounded-sm"
+                />
+              )}
+            </div>
+          </div>
         </div>
         <div className="w-full flex gap-[20px] justify-end">
           <button

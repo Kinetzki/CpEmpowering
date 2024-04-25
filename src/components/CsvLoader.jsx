@@ -24,10 +24,11 @@ function CsvLoader({ entries, handleClick, cancel }) {
           );
         })}
       </div>
-      <div className="flex w-full px-[100px] justify-end gap-5">
-        <button>Cancel</button>
+      <div className="flex w-full px-[100px] justify-end gap-5 mt-[10px]">
+        <button onClick={cancel} className="bg bg-slate-500 rounded-lg px-[10px]">Cancel</button>
         <ButtonComp2
           text="Confirm Data"
+          otherStyle={"p-[5px] rounded-[10px]"}
           handleClick={handleClick}
         />
       </div>
