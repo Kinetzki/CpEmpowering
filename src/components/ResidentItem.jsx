@@ -14,7 +14,7 @@ function ResidentItem({ entry, setSelected, setClicked, handleClick, selectedArr
 
   return (
     <div
-      className="flex text-black w-full gap-3 min-h-[55px] items-center border-b-[1px] border-[#000000] hover:bg-[#FF000026] cursor-pointer select-none"
+      className={"flex text-black w-full gap-3 min-h-[55px] items-center border-b-[1px] border-[#000000] hover:bg-[#45A5F133] cursor-pointer select-none " + (entry.deceased? "bg-[#FF000026]" : "bg-transparent")}
       onClick={() => {
         setClicked(entry);
         console.log(entry);
@@ -22,7 +22,7 @@ function ResidentItem({ entry, setSelected, setClicked, handleClick, selectedArr
       }}
     >
       <div
-        className="w-[18px] h-[18px] border-[1px] border-[var(--bg-color)] rounded-sm flex items-center"
+        className="w-[20px] h-[15px] border-[1px] border-[var(--bg-color)] rounded-sm flex items-center"
         onClick={(e) => {
           setIsChecked(!isChecked);
           e.stopPropagation();
@@ -33,12 +33,12 @@ function ResidentItem({ entry, setSelected, setClicked, handleClick, selectedArr
         )}
       </div>
 
-      <h1 className="w-[200px]">{`${entry.first_name} ${entry.middle_name} ${entry.surname}`}</h1>
-      <h1 className="w-[50px]">{entry.age}</h1>
-      <h1 className="w-[220px]">{entry.email || "N/A"}</h1>
-      <h1 className="w-[240px]">{entry.address}</h1>
-      <h1 className="w-[120px]">{entry.phone_number}</h1>
-      <h1 className="w-[90px]">{entry.sex}</h1>
+      <h1 className="w-[25%] truncate">{`${entry.first_name} ${entry.middle_name} ${entry.surname}`}</h1>
+      <h1 className="w-[5%]">{entry.age}</h1>
+      <h1 className="w-[30%] truncate">{entry.email || "N/A"}</h1>
+      <h1 className="w-[30%]">{entry.address}</h1>
+      <h1 className="w-[20%]">{entry.phone_number}</h1>
+      <h1 className="w-[20%]">{entry.sex}</h1>
     </div>
   );
 }

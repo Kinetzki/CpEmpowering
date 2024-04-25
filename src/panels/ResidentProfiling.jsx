@@ -11,6 +11,7 @@ import ShowResident from "../components/ShowResident";
 import sort from "../assets/icons/sort.svg";
 import getdata from "../utils/readCsv";
 import CsvLoader from "../components/CsvLoader";
+import ErrorComp from "../components/ErrorComp";
 
 function ResidentProfiling() {
   const [residents, setResidents] = useState([]);
@@ -28,6 +29,7 @@ function ResidentProfiling() {
   const [newResident, setNewResident] = useState({});
   const [importData, setImportData] = useState([]);
   const [showCSV, setShowCSV] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
     console.log(newResident);
@@ -130,17 +132,33 @@ function ResidentProfiling() {
     setShowAdd(false);
     console.log(newResident);
     //match ng sa keys
-    const response = await axios.post(
-      "https://jacobdfru.pythonanywhere.com/api/residents/add",
-      newResident,
-      {
-        headers: {
-          Authorization: `Token ${sessionStorage.getItem("token")}`,
-        },
+    var response = null;
+    try {
+      response = await axios.post(
+        "https://jacobdfru.pythonanywhere.com/api/residents/add",
+        newResident,
+        {
+          headers: {
+            Authorization: `Token ${sessionStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        await fetchData();
       }
-    );
-    if (response.status === 200) {
-      await fetchData();
+      // else if (response.status === 400) {
+      //   setIsLoading(false);
+      //   const e = response.error;
+      //   console.log(e);
+      //   setErrMsg(e);
+      // }
+    } catch (err) {
+      console.log(err);
+      // setIsLoading(false);
+      const e = err.response.data.error;
+      console.log(e);
+      setErrMsg(e);
     }
   };
 
@@ -174,6 +192,7 @@ function ResidentProfiling() {
           },
         }
       );
+      console.log(response);
       if (response.status === 200) {
         await fetchData();
       } else {
@@ -187,7 +206,7 @@ function ResidentProfiling() {
   };
 
   return (
-    <div className="w-[81vw] bg-white min-h-screen p-2 flex flex-col">
+    <div className="w-[100%] bg-white min-h-screen p-2 flex flex-col">
       <Banner />
       <div className="w-full rounded-xl bg-[var(--bg-color)] h-[55px] justify-between items-center flex px-5 py-2 translate-y-[25px] z-[100]">
         <h1>Manage Residents</h1>
@@ -215,6 +234,8 @@ function ResidentProfiling() {
             handleClick={() => {
               if (selected.length > 0) {
                 setConfirm(!confirm);
+              } else {
+                setErrMsg("No Residents Selected")
               }
             }}
           />
@@ -258,12 +279,26 @@ function ResidentProfiling() {
             }}
           />
         )}
+
+        {errMsg && (
+          <ErrorComp
+            err={errMsg}
+            handleClick={async () => {
+              setErrMsg("");
+              await fetchData();
+            }}
+          />
+        )}
+
         {showResident && (
           <ShowResident
             entry={{ ...clickedResident }}
             handleClick={async (id, data) => {
               setShowResident(false);
               await handleEditResident(id, data);
+            }}
+            cancel={()=>{
+              setShowResident(false);
             }}
           />
         )}

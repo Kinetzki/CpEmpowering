@@ -132,7 +132,7 @@ function HouseHold() {
             <input
               type="text"
               className="text-[var(--bg-color)] bg-white px-[10px] rounded-full py-[3px]"
-              placeholder="Search"
+              placeholder="Search Household No."
               onChange={(e) => {
                 setHouseholdNumber(e.target.value);
               }}
@@ -181,7 +181,7 @@ function HouseHold() {
               <input
                 type="text"
                 className="text-[var(--bg-color)] bg-white px-[10px] rounded-full py-[3px]"
-                placeholder="Search"
+                placeholder="Search Resident"
                 onChange={handleSearch}
               />
             </div>

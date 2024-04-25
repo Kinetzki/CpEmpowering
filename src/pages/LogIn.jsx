@@ -62,7 +62,7 @@ function LogIn() {
         position={"bottom-[-23%] right-[-43%] z-[-2] border-[#2788d8]"}
       />
       <BgCircle position={"bottom-[-90%] left-[-5%] z-[-2] border-[#2788d8]"} />
-      <Header />
+      {/* <Header /> */}
       <div className="w-full flex items-center justify-center mt-[4%]">
         <div className="flex flex-col items-center gap-3 bg-white text-black px-[50px] py-[30px] rounded-xl w-[450px] h-[460px] relative">
           <h1 className="font-Outfit text-[20px]">Login</h1>

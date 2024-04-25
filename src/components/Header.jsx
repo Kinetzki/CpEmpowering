@@ -15,12 +15,12 @@ function Header() {
             navigate("/");
           }}
         />
-        <ButtonComp
+        {/* <ButtonComp
           text={"Sign Up"}
           handleClick={() => {
             navigate("/signup");
           }}
-        />
+        /> */}
       </div>
     </div>
   );

@@ -95,7 +95,7 @@ function BarangayOfficials() {
         </h1>
         <hr className="w-full border-[var(--bg-color)]" />
         <div className="flex gap-5">
-          <Dropdown text={"Sort"} items={["Name", "Age"]} />
+          {/* <Dropdown text={"Sort"} items={["Name", "Age"]} /> */}
           <ButtonComp2
             text={"Add"}
             otherStyle={"px-[30px] py-[6px] rounded-lg"}
