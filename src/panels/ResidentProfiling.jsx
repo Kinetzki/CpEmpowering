@@ -32,6 +32,7 @@ function ResidentProfiling() {
   const [showCSV, setShowCSV] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [failedCSV, setFailedCSV] = useState([]);
+  const [noMatch, setNoMatch] = useState(false);
 
   useEffect(() => {
     console.log(newResident);
@@ -108,8 +109,10 @@ function ResidentProfiling() {
     });
 
     if (matches.length < 1) {
-      setIsLoading(true);
+      //setIsLoading(true);
+      setNoMatch(true);
     } else {
+      setNoMatch(false);
       setIsLoading(false);
     }
 
@@ -288,6 +291,7 @@ function ResidentProfiling() {
             }}
           />
         )}
+
         {showCSV && (
           <CsvLoader
             entries={importData}
@@ -391,7 +395,7 @@ function ResidentProfiling() {
             <h1 className="w-[90px]">Sex</h1>
           </div>
         )}
-
+        {noMatch && <h1 className="text-black w-full text-center font-semibold py-[30px] text-[25px]">No Match Found</h1>}
         {/* Map here */}
         {residents &&
           residents
