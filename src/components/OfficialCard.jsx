@@ -4,11 +4,13 @@ import ButtonComp2 from "./ButtonComp2";
 function OfficialCard({ entry, handleEdit, handleDelete }) {
   return (
     <div className="hover:scale-[1.03] duration-[0.3s] bg-[var(--bg-color)] w-[210px] h-[250px] mx-[10px] rounded-2xl flex flex-col px-3 py-1 items-center gap-2 z-[1] shadow-none hover:shadow-lg shadow-black">
+      
       <h1 className="w-full border-b-[1px] border-[#ffffff]">
         {entry.position || "Official"}
       </h1>
-      <div className="w-[52px] h-[52px] bg-white rounded-full" />
-      <h1 className="text-[13px]">{`${entry.first_name} ${entry.middle_name} ${entry.surname}`}</h1>
+      <hr className="py-[10px]"/>
+      <h1 className="text-[13px] mb-[20px]">{`${entry.first_name} ${entry.middle_name} ${entry.surname}`}</h1>
+
       <h1 className="w-full border-b-[1px] border-[#ffffff] text-[11px] truncate">
         {entry.address}
       </h1>
