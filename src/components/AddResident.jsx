@@ -4,7 +4,7 @@ import ButtonComp2 from "./ButtonComp2";
 
 function AddResident({ handleClick, cancel, setNewResident }) {
   return (
-    <div className="bg-[var(--bg-color)] absolute w-[550px] rounded-[15px] right-[10px] top-[30px] px-[30px] py-[20px] ">
+    <div className="fixed bg-[var(--bg-color)] w-[550px] rounded-[15px] right-[40px] top-[130px] px-[30px] py-[20px] ">
       <div className="text-white mb-[5px] flex flex-col gap-[3px]">
         <h1 className="font-bold border-b-2 border-solid border-white text-[16px]">
           Add New Resident
