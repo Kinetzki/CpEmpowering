@@ -42,7 +42,7 @@ function ResidentProfiling() {
     setIsLoading(true);
     setResidents([]);
     const response = await axios.get(
-      "https://jacobdfru.pythonanywhere.com/api/residents/list",
+      "http://127.0.0.1:8000/api/residents/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -75,7 +75,7 @@ function ResidentProfiling() {
     const data = { id: selected };
     console.log(data);
     const response = await axios.post(
-      "https://jacobdfru.pythonanywhere.com/api/residents/bulk-delete",
+      "http://127.0.0.1:8000/api/residents/bulk-delete",
       data,
       {
         headers: {
@@ -141,7 +141,7 @@ function ResidentProfiling() {
     var response = null;
     try {
       response = await axios.post(
-        "https://jacobdfru.pythonanywhere.com/api/residents/add",
+        "http://127.0.0.1:8000/api/residents/add",
         newResident,
         {
           headers: {
@@ -173,7 +173,7 @@ function ResidentProfiling() {
     setResidents([]);
     console.log(id, data);
     const response = await axios.put(
-      `https://jacobdfru.pythonanywhere.com/api/residents/update/${id}`,
+      `http://127.0.0.1:8000/api/residents/update/${id}`,
       data,
       {
         headers: {
@@ -191,7 +191,7 @@ function ResidentProfiling() {
     try {
       if (importData.length > 0) {
         const response = await axios.post(
-          "https://jacobdfru.pythonanywhere.com/api/residents/upload",
+          "http://127.0.0.1:8000/api/residents/upload",
           { residents: importData },
           {
             headers: {
@@ -218,7 +218,7 @@ function ResidentProfiling() {
     }
   };
   const handleDownload = () => {
-    window.open("https://jacobdfru.pythonanywhere.com/api/residents/download");
+    window.open("http://127.0.0.1:8000/api/residents/download");
   };
 
   return (
@@ -396,7 +396,11 @@ function ResidentProfiling() {
             <h1 className="w-[20%]">Sex</h1>
           </div>
         )}
-        {noMatch && <h1 className="text-black w-full text-center font-semibold py-[30px] text-[25px]">No Match Found</h1>}
+        {noMatch && (
+          <h1 className="text-black w-full text-center font-semibold py-[30px] text-[25px]">
+            No Match Found
+          </h1>
+        )}
         {/* Map here */}
         {residents &&
           residents

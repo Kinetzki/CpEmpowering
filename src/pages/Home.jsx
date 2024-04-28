@@ -23,7 +23,7 @@ function Home() {
       {panel === "barangay-officials" && <BarangayOfficials />}
       {panel === "resident-profiling" && <ResidentProfiling />}
       {panel === "barangay-info" && <BarangayInfo />}
-      {panel === "households" && <HouseHold />}
+      {panel === "purok" && <HouseHold />}
     </div>
   );
 }

@@ -44,10 +44,10 @@ function SidePanel() {
           routes={["resident-profiling/1"]}
         />
         <PanelButton
-          text={"Households"}
+          text={"Purok"}
           icon={house}
           handleClick={() => {
-            navigate("/households/1");
+            navigate("/purok/1");
           }}
         />
     </div>

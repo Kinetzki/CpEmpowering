@@ -21,7 +21,7 @@ function BarangayOfficials() {
   const fetchOfficials = async () => {
     setIsLoading(true);
     const response = await axios.get(
-      "https://jacobdfru.pythonanywhere.com/api/officials/list",
+      "http://127.0.0.1:8000/api/officials/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -41,7 +41,7 @@ function BarangayOfficials() {
 
   const handleDelete = async (id) => {
     const response = await axios.delete(
-      `https://jacobdfru.pythonanywhere.com/api/officials/delete/${id}`,
+      `http://127.0.0.1:8000/api/officials/delete/${id}`,
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -57,7 +57,7 @@ function BarangayOfficials() {
     try {
       if (newOfficial) {
         const response = await axios.post(
-          "https://jacobdfru.pythonanywhere.com/api/officials/add",
+          "http://127.0.0.1:8000/api/officials/add",
           newOfficial,
           {
             headers: {
@@ -69,18 +69,17 @@ function BarangayOfficials() {
           await fetchOfficials();
         }
       }
-    } catch(err) {
+    } catch (err) {
       setIsLoading(false);
       setErrMsg("Error please check all fields");
     }
-    
   };
 
   const handleEditOfficial = async (id, data) => {
     setIsLoading(true);
     console.log(id, data);
     const response = await axios.put(
-      `https://jacobdfru.pythonanywhere.com/api/officials/update/${id}`,
+      `http://127.0.0.1:8000/api/officials/update/${id}`,
       data,
       {
         headers: {
@@ -138,10 +137,15 @@ function BarangayOfficials() {
         )}
         {isLoading && <Loader />}
         {/* Render Officials Cards */}
-        {errMsg && <ErrorComp err={errMsg} handleClick={async ()=>{
-          setErrMsg("");
-          await fetchOfficials();
-        }}/>}
+        {errMsg && (
+          <ErrorComp
+            err={errMsg}
+            handleClick={async () => {
+              setErrMsg("");
+              await fetchOfficials();
+            }}
+          />
+        )}
         {officials?.map((official, i) => {
           return (
             <OfficialCard

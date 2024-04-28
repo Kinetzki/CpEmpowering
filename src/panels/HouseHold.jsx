@@ -45,7 +45,7 @@ function HouseHold() {
       const matches = backUpRes.filter((element) => {
         return element.household === nameArr;
       });
-  
+
       if (matches.length < 1) {
         // setIsLoading(true);
         setNoMatch(true);
@@ -55,14 +55,13 @@ function HouseHold() {
       }
       setResidents(matches);
     }
-    
   };
 
   const removeResident = async () => {
     const data = { id: selected };
     console.log(data);
     const response = await axios.post(
-      "https://jacobdfru.pythonanywhere.com/api/residents/bulk-delete",
+      "http://127.0.0.1:8000/api/residents/bulk-delete",
       data,
       {
         headers: {
@@ -94,7 +93,7 @@ function HouseHold() {
 
   const fetchHouseholds = async () => {
     const response = await axios.get(
-      "https://jacobdfru.pythonanywhere.com/api/household/list",
+      "http://127.0.0.1:8000/api/household/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -111,7 +110,7 @@ function HouseHold() {
     setNoMatch(false);
     setIsLoading(true);
     const response = await axios.get(
-      "https://jacobdfru.pythonanywhere.com/api/residents/list",
+      "http://127.0.0.1:8000/api/residents/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -197,7 +196,7 @@ function HouseHold() {
               handleClick={() => {
                 setShowResident(false);
               }}
-              cancel ={()=>{
+              cancel={() => {
                 setShowResident(false);
               }}
             />
@@ -205,7 +204,7 @@ function HouseHold() {
           {isLoading && <Loader />}
           {confirm && (
             <ConfirmDel
-            confirmText={"Delete"}
+              confirmText={"Delete"}
               text="Delete resident/s?"
               handleClick={async () => {
                 setConfirm(false);
