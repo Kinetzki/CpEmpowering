@@ -61,7 +61,7 @@ function ShowResident({ entry, handleClick, cancel }) {
         {/* second row */}
         <div className="w-full flex justify-between">
           <FieldResident
-            inputDisplay={"Birthdate(mm/dd/yyyy)"}
+            inputDisplay={"Birthdate(dd/mm/yyyy)"}
             type={"date"}
             width={"w-[180px]"}
             value={data.birthday || ""}
@@ -165,7 +165,7 @@ function ShowResident({ entry, handleClick, cancel }) {
           <FieldResident
             inputDisplay={"Household Number"}
             type={"text"}
-            width={"w-[55px]"}
+            width={"w-[85px]"}
             value={data.household || ""}
             handleChange={(e) => {
               setData((prev) => ({ ...prev, household: e.target.value }));

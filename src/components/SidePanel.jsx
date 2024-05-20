@@ -4,7 +4,9 @@ import PanelDropDown from "./PanelDropDown";
 import dashboard from "../assets/icons/dashboard.svg";
 import barangay from "../assets/icons/barangay.svg";
 import resident from "../assets/icons/resident.svg";
+import support from "../assets/icons/support.svg";
 import logo from "../assets/icons/logo.png";
+import kumintang from "../assets/icons/kumintang.png";
 import house from "../assets/icons/house.svg";
 import { useNavigate } from "react-router-dom";
 import ShowResident from "../components/ShowResident";
@@ -17,7 +19,7 @@ function SidePanel() {
         <div className="w-full flex items-center justify-center p-1">
           <div className="w-[120px] h-[120px] rounded-full bg-transparent shadow-white/20 shadow-md">
             <img
-              src={logo}
+              src={kumintang}
               alt=""
               className="w-full h-full object-cover rounded-full"
             />
@@ -44,10 +46,17 @@ function SidePanel() {
           routes={["resident-profiling/1"]}
         />
         <PanelButton
-          text={"Purok"}
+          text={"Household"}
           icon={house}
           handleClick={() => {
-            navigate("/purok/1");
+            navigate("/household/1");
+          }}
+        />
+        <PanelButton
+          text={"Support"}
+          icon={support}
+          handleClick={() => {
+            navigate("/support");
           }}
         />
     </div>

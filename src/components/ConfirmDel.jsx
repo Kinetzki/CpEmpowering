@@ -2,7 +2,7 @@ import React from 'react'
 
 function ConfirmDel({text, handleClick, cancel, confirmText}) {
   return (
-    <div className='absolute w-full h-full top-0 flex items-center justify-center left-0'>
+    <div className='fixed w-full h-full top-[4%] flex items-center justify-center z-[111] left-0'>
         <div className='bg-white text-[var(--bg-color)] py-[50px] px-[60px] flex-col gap-[30px] flex border-[1px] border-[var(--bg-color)] rounded-lg'>
             <h1 className='text-[20px] font-semibold'>{text}</h1>
             <div className='flex justify-around w-full'>

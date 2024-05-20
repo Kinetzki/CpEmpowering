@@ -33,11 +33,11 @@ function ResidentItem({ entry, setSelected, setClicked, handleClick, selectedArr
         )}
       </div>
 
-      <h1 className="w-[25%] truncate">{`${entry.first_name} ${entry.middle_name} ${entry.surname}`}</h1>
-      <h1 className="w-[5%]">{entry.age}</h1>
-      <h1 className="w-[30%] truncate">{entry.email || "N/A"}</h1>
-      <h1 className="w-[30%]">{entry.address}</h1>
-      <h1 className="w-[20%]">{entry.phone_number}</h1>
+      <h1 className="w-[30%] truncate">{`${entry.first_name} ${entry.middle_name} ${entry.surname}`}</h1>
+      <h1 className="w-[15%]">{entry.age}</h1>
+      {/* <h1 className="w-[30%] truncate">{entry.email || "N/A"}</h1> */}
+      <h1 className="w-[40%]">{entry.address}</h1>
+      {/* <h1 className="w-[20%]">{entry.phone_number}</h1> */}
       <h1 className="w-[20%]">{entry.sex}</h1>
     </div>
   );

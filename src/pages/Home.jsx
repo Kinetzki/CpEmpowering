@@ -6,6 +6,7 @@ import BarangayOfficials from "../panels/BarangayOfficials";
 import ResidentProfiling from "../panels/ResidentProfiling";
 import BarangayInfo from "../panels/BarangayInfo";
 import HouseHold from "../panels/HouseHold";
+import ContactInfo from "../panels/ContactInfo";
 
 function Home() {
   const { panel } = useParams();
@@ -23,7 +24,8 @@ function Home() {
       {panel === "barangay-officials" && <BarangayOfficials />}
       {panel === "resident-profiling" && <ResidentProfiling />}
       {panel === "barangay-info" && <BarangayInfo />}
-      {panel === "purok" && <HouseHold />}
+      {panel === "household" && <HouseHold />}
+      {panel === "support" && <ContactInfo />}
     </div>
   );
 }

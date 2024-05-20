@@ -4,6 +4,8 @@ import ButtonComp from "../components/ButtonComp";
 import InputField from "../components/InputField";
 import mail from "../assets/icons/mail.svg";
 import lock from "../assets/icons/lock.svg";
+import eyeShow from "../assets/icons/eyeShow.svg";
+import eyeHide from "../assets/icons/eyeHide.svg";
 import BgCircle from "../components/BgCircle";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +15,7 @@ function LogIn() {
   const [passwrd, setPasswrd] = useState("");
   const navigate = useNavigate();
   const [correct, setCorrect] = useState(false);
+  const [isPass, setIsPass] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUser = (e) => {
@@ -35,7 +38,7 @@ function LogIn() {
       };
       try {
         const response = await axios.post(
-          "http://127.0.0.1:8000/api/login",
+          "http://192.168.1.2:8000/api/login",
           data
         );
         if (response.data !== "Incorrext username or passwordoh ") {
@@ -81,9 +84,10 @@ function LogIn() {
             >
               <img src={mail} alt="" className="w-[20px] h-[20px]" />
             </InputField>
+
             <InputField
               placeHolder={"Enter your password"}
-              type={"password"}
+              type={isPass ? "password" : "text"}
               onChange={handlePass}
               onEnter={async (e) => {
                 if (e.key === "Enter" || e.keyCode === 13) {
@@ -92,6 +96,14 @@ function LogIn() {
               }}
             >
               <img src={lock} alt="" className="w-[20px] h-[20px]" />
+              <img
+                src={isPass ? eyeShow : eyeHide}
+                alt=""
+                className="absolute w-[20px] h-[20px] right-[60px] cursor-pointer opacity-75"
+                onClick={() => {
+                  setIsPass(!isPass);
+                }}
+              />
             </InputField>
           </div>
           {/* <div className="flex justify-between w-full text-[12px]">

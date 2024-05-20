@@ -52,7 +52,7 @@ function AddResident({ handleClick, cancel, setNewResident }) {
         {/* second row */}
         <div className="w-full flex justify-between">
           <FieldResident
-            inputDisplay={"Birthdate(mm/dd/yyyy)"}
+            inputDisplay={"Birthdate(dd/mm/yyyy)"}
             type={"date"}
             width={"w-[180px]"}
             handleChange={(e) => {

@@ -9,6 +9,7 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import ShowOfficial from "../components/ShowOfficial";
 import ErrorComp from "../components/ErrorComp";
+import ConfirmDel from "../components/ConfirmDel";
 
 function BarangayOfficials() {
   const [showAdd, setShowAdd] = useState(false);
@@ -18,10 +19,12 @@ function BarangayOfficials() {
   const [showEdit, setShowEdit] = useState(false);
   const [clickedOfficial, setClickedOfficial] = useState(null);
   const [errMsg, setErrMsg] = useState("");
+  const [confirm, setConfirm] = useState(false);
+  const [id, setId] = useState(null);
   const fetchOfficials = async () => {
     setIsLoading(true);
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/officials/list",
+      "http://192.168.1.2:8000/api/officials/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -39,9 +42,9 @@ function BarangayOfficials() {
     fetchOfficials();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     const response = await axios.delete(
-      `http://127.0.0.1:8000/api/officials/delete/${id}`,
+      `http://192.168.1.2:8000/api/officials/delete/${id}`,
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -57,7 +60,7 @@ function BarangayOfficials() {
     try {
       if (newOfficial) {
         const response = await axios.post(
-          "http://127.0.0.1:8000/api/officials/add",
+          "http://192.168.1.2:8000/api/officials/add",
           newOfficial,
           {
             headers: {
@@ -79,7 +82,7 @@ function BarangayOfficials() {
     setIsLoading(true);
     console.log(id, data);
     const response = await axios.put(
-      `http://127.0.0.1:8000/api/officials/update/${id}`,
+      `http://192.168.1.2:8000/api/officials/update/${id}`,
       data,
       {
         headers: {
@@ -117,6 +120,7 @@ function BarangayOfficials() {
           <ShowOfficial
             cancel={() => {
               setShowEdit(false);
+              setClickedOfficial(null);
             }}
             entry={clickedOfficial}
             handleClick={async (id, data) => {
@@ -131,10 +135,27 @@ function BarangayOfficials() {
             handleClick={handleAdd}
             cancel={async () => {
               setShowAdd(false);
-              await handleAdd();
             }}
           />
         )}
+
+        {confirm && (
+          <ConfirmDel
+            text={"Delete Official?"}
+            handleClick={async () => {
+              setConfirm(false);
+              setOfficials([]);
+              setIsLoading(true);
+              await handleDelete();
+              await fetchOfficials();
+            }}
+            cancel={() => {
+              setConfirm(false);
+            }}
+            confirmText={"Delete"}
+          />
+        )}
+
         {isLoading && <Loader />}
         {/* Render Officials Cards */}
         {errMsg && (
@@ -161,9 +182,11 @@ function BarangayOfficials() {
                 }
               }}
               handleDelete={async (id) => {
-                setIsLoading(true);
-                await handleDelete(id);
-                fetchOfficials();
+                // setIsLoading(true);
+                // await handleDelete(id);
+                // fetchOfficials();
+                setId(id);
+                setConfirm(true);
               }}
             />
           );

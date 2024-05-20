@@ -61,7 +61,7 @@ function HouseHold() {
     const data = { id: selected };
     console.log(data);
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/residents/bulk-delete",
+      "http://192.168.1.2:8000/api/residents/bulk-delete",
       data,
       {
         headers: {
@@ -93,7 +93,7 @@ function HouseHold() {
 
   const fetchHouseholds = async () => {
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/household/list",
+      "http://192.168.1.2:8000/api/household/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -110,7 +110,7 @@ function HouseHold() {
     setNoMatch(false);
     setIsLoading(true);
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/residents/list",
+      "http://192.168.1.2:8000/api/residents/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -159,7 +159,8 @@ function HouseHold() {
       )} */}
       <>
         <div className="w-full rounded-xl bg-[var(--bg-color)] h-[55px] justify-between items-center flex px-5 py-2 translate-y-[25px] z-[100]">
-          <h1>{`Household No. ${householdNumber}`}</h1>
+          {/* <h1>{`Household No. ${householdNumber}`}</h1> */}
+          <h1>{"Search index for Purok No."}</h1>
           <div className="flex gap-2 items-center">
             {/* <ButtonComp2
               text={"Back"}
@@ -182,7 +183,7 @@ function HouseHold() {
             <input
               type="text"
               className="text-[var(--bg-color)] bg-white px-[10px] rounded-full py-[3px]"
-              placeholder="Search Resident"
+              placeholder="Search Purok No."
               onChange={handleSearch}
             />
           </div>
@@ -219,7 +220,7 @@ function HouseHold() {
             <div className="font-semibold flex text-black mt-[30px] w-full gap-3 bg-white h-[55px] items-end py-2 border-b-[1px] border-[#000000]">
               <div className="w-[20px]"></div>
               <h1
-                className="w-[25%] flex items-center gap-2 cursor-pointer"
+                className="w-[30%] flex items-center gap-2 cursor-pointer"
                 onClick={() => {
                   setResidents((prev) => {
                     const sortedResidents = [...prev];
@@ -235,7 +236,7 @@ function HouseHold() {
                 </span>
               </h1>
               <h1
-                className="w-[5%] flex items-center gap-2 cursor-pointer"
+                className="w-[15%] flex items-center gap-2 cursor-pointer"
                 onClick={() => {
                   setResidents((prev) => {
                     const sortedResidents = [...prev];
@@ -248,9 +249,9 @@ function HouseHold() {
                   <img src={sort} alt="" className="w-[10px]" />
                 </span>
               </h1>
-              <h1 className="w-[30%]">Email</h1>
-              <h1 className="w-[30%]">Address</h1>
-              <h1 className="w-[20%]">Phone</h1>
+              {/* <h1 className="w-[30%]">Email</h1> */}
+              <h1 className="w-[40%]">Address</h1>
+              {/* <h1 className="w-[20%]">Phone</h1> */}
               <h1 className="w-[20%]">Actions</h1>
             </div>
           )}
@@ -277,13 +278,13 @@ function HouseHold() {
                     setSelected={setSelected}
                     setClicked={setClickedResident}
                     selectedArr={selected}
-                    handleClick={() => {
-                      if (clickedResident && resident === clickedResident) {
-                        setShowResident((prev) => !prev);
-                      } else {
-                        setShowResident(true);
-                      }
-                    }}
+                    // handleClick={() => {
+                    //   if (clickedResident && resident === clickedResident) {
+                    //     setShowResident((prev) => !prev);
+                    //   } else {
+                    //     setShowResident(true);
+                    //   }
+                    // }}
                   />
                 );
               })}

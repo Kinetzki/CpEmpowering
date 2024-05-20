@@ -42,7 +42,7 @@ function ResidentProfiling() {
     setIsLoading(true);
     setResidents([]);
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/residents/list",
+      "http://192.168.1.2:8000/api/residents/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -75,7 +75,7 @@ function ResidentProfiling() {
     const data = { id: selected };
     console.log(data);
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/residents/bulk-delete",
+      "http://192.168.1.2:8000/api/residents/bulk-delete",
       data,
       {
         headers: {
@@ -141,7 +141,7 @@ function ResidentProfiling() {
     var response = null;
     try {
       response = await axios.post(
-        "http://127.0.0.1:8000/api/residents/add",
+        "http://192.168.1.2:8000/api/residents/add",
         newResident,
         {
           headers: {
@@ -151,6 +151,7 @@ function ResidentProfiling() {
       );
       console.log(response);
       if (response.status === 200) {
+        setNewResident({});
         await fetchData();
       }
       // else if (response.status === 400) {
@@ -173,7 +174,7 @@ function ResidentProfiling() {
     setResidents([]);
     console.log(id, data);
     const response = await axios.put(
-      `http://127.0.0.1:8000/api/residents/update/${id}`,
+      `http://192.168.1.2:8000/api/residents/update/${id}`,
       data,
       {
         headers: {
@@ -188,10 +189,11 @@ function ResidentProfiling() {
 
   const handleAddCSV = async () => {
     console.log(importData);
+    setIsLoading(true);
     try {
       if (importData.length > 0) {
         const response = await axios.post(
-          "http://127.0.0.1:8000/api/residents/upload",
+          "http://192.168.1.2:8000/api/residents/upload",
           { residents: importData },
           {
             headers: {
@@ -216,9 +218,10 @@ function ResidentProfiling() {
       console.log(e);
       setErrMsg(e);
     }
+    setIsLoading(false);
   };
   const handleDownload = () => {
-    window.open("http://127.0.0.1:8000/api/residents/download");
+    window.open("http://192.168.1.2:8000/api/residents/download");
   };
 
   return (
@@ -234,6 +237,7 @@ function ResidentProfiling() {
           />
           <input
             type="file"
+            accept=".csv"
             ref={fileInputRef}
             style={{ display: "none" }}
             onChange={handleFileChange}
@@ -349,7 +353,7 @@ function ResidentProfiling() {
           <div className="font-semibold flex text-black mt-[30px] w-full gap-3 bg-white h-[55px] items-end py-2 border-b-[1px] border-[#000000]">
             <div className="w-[20px]"></div>
             <h1
-              className="w-[25%] flex items-center gap-2 cursor-pointer"
+              className="w-[30%] flex items-center gap-2 cursor-pointer"
               onClick={() => {
                 setResidents((prev) => {
                   var sortedResidents = [...prev];
@@ -371,7 +375,7 @@ function ResidentProfiling() {
               </span>
             </h1>
             <h1
-              className="w-[5%] flex items-start gap-2 cursor-pointer"
+              className="w-[15%] flex items-start gap-2 cursor-pointer"
               onClick={() => {
                 setResidents((prev) => {
                   var sortedResidents = [...prev];
@@ -390,9 +394,9 @@ function ResidentProfiling() {
                 <img src={sort} alt="" className="w-[10px]" />
               </span>
             </h1>
-            <h1 className="w-[30%]">Email</h1>
-            <h1 className="w-[30%]">Address</h1>
-            <h1 className="w-[20%]">Phone</h1>
+            {/* <h1 className="w-[30%]">Email</h1> */}
+            <h1 className="w-[40%]">Address</h1>
+            {/* <h1 className="w-[20%]">Phone</h1> */}
             <h1 className="w-[20%]">Sex</h1>
           </div>
         )}
