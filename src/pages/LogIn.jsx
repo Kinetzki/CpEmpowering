@@ -38,7 +38,7 @@ function LogIn() {
       };
       try {
         const response = await axios.post(
-          "http://192.168.1.2:8000/api/login",
+          "https://jacobdfru.pythonanywhere.com/api/login",
           data
         );
         if (response.data !== "Incorrext username or passwordoh ") {

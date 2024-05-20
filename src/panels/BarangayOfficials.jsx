@@ -24,7 +24,7 @@ function BarangayOfficials() {
   const fetchOfficials = async () => {
     setIsLoading(true);
     const response = await axios.get(
-      "http://192.168.1.2:8000/api/officials/list",
+      "https://jacobdfru.pythonanywhere.com/api/officials/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -44,7 +44,7 @@ function BarangayOfficials() {
 
   const handleDelete = async () => {
     const response = await axios.delete(
-      `http://192.168.1.2:8000/api/officials/delete/${id}`,
+      `https://jacobdfru.pythonanywhere.com/api/officials/delete/${id}`,
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -60,7 +60,7 @@ function BarangayOfficials() {
     try {
       if (newOfficial) {
         const response = await axios.post(
-          "http://192.168.1.2:8000/api/officials/add",
+          "https://jacobdfru.pythonanywhere.com/api/officials/add",
           newOfficial,
           {
             headers: {
@@ -82,7 +82,7 @@ function BarangayOfficials() {
     setIsLoading(true);
     console.log(id, data);
     const response = await axios.put(
-      `http://192.168.1.2:8000/api/officials/update/${id}`,
+      `https://jacobdfru.pythonanywhere.com/api/officials/update/${id}`,
       data,
       {
         headers: {

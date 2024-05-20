@@ -61,7 +61,7 @@ function HouseHold() {
     const data = { id: selected };
     console.log(data);
     const response = await axios.post(
-      "http://192.168.1.2:8000/api/residents/bulk-delete",
+      "https://jacobdfru.pythonanywhere.com/api/residents/bulk-delete",
       data,
       {
         headers: {
@@ -93,7 +93,7 @@ function HouseHold() {
 
   const fetchHouseholds = async () => {
     const response = await axios.get(
-      "http://192.168.1.2:8000/api/household/list",
+      "https://jacobdfru.pythonanywhere.com/api/household/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -110,7 +110,7 @@ function HouseHold() {
     setNoMatch(false);
     setIsLoading(true);
     const response = await axios.get(
-      "http://192.168.1.2:8000/api/residents/list",
+      "https://jacobdfru.pythonanywhere.com/api/residents/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,

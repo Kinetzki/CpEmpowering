@@ -42,7 +42,7 @@ function ResidentProfiling() {
     setIsLoading(true);
     setResidents([]);
     const response = await axios.get(
-      "http://192.168.1.2:8000/api/residents/list",
+      "https://jacobdfru.pythonanywhere.com/api/residents/list",
       {
         headers: {
           Authorization: `Token ${sessionStorage.getItem("token")}`,
@@ -75,7 +75,7 @@ function ResidentProfiling() {
     const data = { id: selected };
     console.log(data);
     const response = await axios.post(
-      "http://192.168.1.2:8000/api/residents/bulk-delete",
+      "https://jacobdfru.pythonanywhere.com/api/residents/bulk-delete",
       data,
       {
         headers: {
@@ -141,7 +141,7 @@ function ResidentProfiling() {
     var response = null;
     try {
       response = await axios.post(
-        "http://192.168.1.2:8000/api/residents/add",
+        "https://jacobdfru.pythonanywhere.com/api/residents/add",
         newResident,
         {
           headers: {
@@ -174,7 +174,7 @@ function ResidentProfiling() {
     setResidents([]);
     console.log(id, data);
     const response = await axios.put(
-      `http://192.168.1.2:8000/api/residents/update/${id}`,
+      `https://jacobdfru.pythonanywhere.com/api/residents/update/${id}`,
       data,
       {
         headers: {
@@ -193,7 +193,7 @@ function ResidentProfiling() {
     try {
       if (importData.length > 0) {
         const response = await axios.post(
-          "http://192.168.1.2:8000/api/residents/upload",
+          "https://jacobdfru.pythonanywhere.com/api/residents/upload",
           { residents: importData },
           {
             headers: {
@@ -221,7 +221,7 @@ function ResidentProfiling() {
     setIsLoading(false);
   };
   const handleDownload = () => {
-    window.open("http://192.168.1.2:8000/api/residents/download");
+    window.open("https://jacobdfru.pythonanywhere.com/api/residents/download");
   };
 
   return (

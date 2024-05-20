@@ -18,7 +18,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        "http://192.168.1.2:8000/api/residents/stats",
+        "https://jacobdfru.pythonanywhere.com/api/residents/stats",
         {
           headers: {
             Authorization: `Token ${sessionStorage.getItem("token")}`,
